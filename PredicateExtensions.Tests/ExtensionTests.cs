@@ -3,88 +3,102 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using FluentAssertions;
 
 namespace PredicateExtensions.Tests
 {
+    /* 
+     * Data is not needed for these tests, we only need to see if the expression trees are formed correctly
+     * Assertions are performed on strings instead of Expression objects 
+     * since two Expressions will evaluate to different instances
+     */
+
     [TestFixture]
-    //Data is not needed for these tests, we only need to see if the expression trees are formed correctly
     public class ExtensionTests
     {
-
-        Expression<Func<string, bool>> EqualsA = str => str == "A";
-        Expression<Func<string, bool>> EqualsC = str => str == "C";
-        Expression<Func<string, bool>> ContainsB = str => str.Contains("B");
+        readonly Expression<Func<string, bool>> equalsA = str => str == "A";
+        readonly Expression<Func<string, bool>> equalsC = str => str == "C";
+        readonly Expression<Func<string, bool>> containsB = str => str.Contains("B");
 
         [Test]
         public void Can_Reduce_Predicates_With_PredicateExtensions_Or_Method()
         {
             //arrange
-            Expression<Func<string, bool>> expectedEither = str => (str == "A" || str.Contains("B"));
-
+            Expression<Func<string, bool>> expectedOrExpression = str => (str == "A" || str.Contains("B"));
+            string expectedExpression = expectedOrExpression.ToString();
+            
             //Act
-            Expression<Func<string, bool>> withEither = EqualsA.Or(ContainsB);
-
+            Expression<Func<string, bool>> orExpression = equalsA.Or(containsB);
+            string resultExpression = orExpression.ToString();
+            
             //Assert
-            Assert.AreEqual(expectedEither.ToString(), withEither.ToString());
-            Console.Write(expectedEither.ToString());
-            Console.WriteLine();
-            Console.Write(withEither.ToString());
+            resultExpression.Should().Be(expectedExpression);
+            LogResults(expectedExpression, resultExpression);
         }
   
-
         [Test]
         public void Can_Reduce_Predicates_With_PredicateExtensions_And_Method()
         {
             //arrange
-            Expression<Func<string, bool>> expectedBoth = str => (str == "A" && str.Contains("B"));
+            Expression<Func<string, bool>> expectedAndExpression = str => (str == "A" && str.Contains("B"));
+            string expectedExpression = expectedAndExpression.ToString();
 
             //Act
-            Expression<Func<string, bool>> withEither = EqualsA.And(ContainsB);
+            Expression<Func<string, bool>> andExpression = equalsA.And(containsB);
+            string resultExpression = andExpression.ToString();
 
             //Assert
-            Assert.AreEqual(expectedBoth.ToString(), withEither.ToString());
-            Console.Write(expectedBoth.ToString());
-            Console.WriteLine();
-            Console.Write(withEither.ToString());
-        }
+            resultExpression.Should().Be(expectedExpression);
+            LogResults(expectedExpression, resultExpression);
 
+        }
+  
         [Test]
         public void Can_Begin_New_Expression()
         {
             //arrange
             var predicate = PredicateExtensions.Begin<string>(true);
-            Expression<Func<string, bool>> expectedEither = str => (str == "A" || str.Contains("B"));
+            Expression<Func<string, bool>> expectedOrExpression = str => (str == "A" || str.Contains("B"));
+            string expectedExpression = expectedOrExpression.ToString();
 
             //Act
-            Expression<Func<string, bool>> withEither = predicate.Or(EqualsA.Or(ContainsB));
+            Expression<Func<string, bool>> orExpression = predicate.Or(equalsA.Or(containsB));
+            string resultExpression = orExpression.ToString();
 
             //Assert
-            Assert.AreEqual(expectedEither.ToString(), withEither.ToString());
-            Console.Write(expectedEither.ToString());
-            Console.WriteLine();
-            Console.Write(withEither.ToString());
-        }
+            resultExpression.Should().Be(expectedExpression);
+            LogResults(expectedExpression, resultExpression);
 
+        }
+  
         [Test]
         public void Can_Reduce_Grouped_Predicates()
         {
+            //arrange
             Expression<Func<string, bool>> expectedGroupedPredicate = 
                 str => (str == "A" || str.Contains("B")) && (str == "C");
 
+            string expectedExpression = expectedGroupedPredicate.ToString();
+
+            //act
             Expression<Func<string, bool>> groupedPredicate =
-                (EqualsA.Or(ContainsB))
-                .And(EqualsC);
+                (equalsA.Or(containsB))
+                .And(equalsC);
 
-            Assert.AreEqual(
-                   expectedGroupedPredicate.ToString(),
-                   groupedPredicate.ToString()
-                );
+            string resultExpression = groupedPredicate.ToString();
 
-            Console.Write(expectedGroupedPredicate.ToString());
+            //assert
+            resultExpression.Should().Be(resultExpression);
+
+            LogResults(expectedExpression, resultExpression);
+
+        }
+  
+        private void LogResults(string expectedExpression, string resultExpression)
+        {
+            Console.Write(expectedExpression);
             Console.WriteLine();
-            Console.Write(groupedPredicate.ToString());
+            Console.Write(resultExpression);
         }
     }
 }

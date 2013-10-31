@@ -3,11 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using FluentAssertions;
 
 namespace PredicateExtensions.Tests
 {
+
+    /* 
+     * SQL Server is required for these tests to run properly.
+     * 
+     * Since Entity Framework can fail to translate predicates at run time
+     * we'll check predicates built with predicate builder against EF.
+    */
+
     [TestFixture]
     public class EfExtensionTests
     {
@@ -17,7 +24,8 @@ namespace PredicateExtensions.Tests
         public void SetUp()
         {
             dbContext = new BloggingContext();
-            //InitDatabase();
+            // TODO: Uncomment if you need to initialize a new database
+            // InitDatabase();
         }
 
         [Test]
@@ -33,7 +41,7 @@ namespace PredicateExtensions.Tests
             Console.WriteLine(results);
 
             //Assert
-            Assert.AreEqual(2, results.Count());
+            results.Count().Should().Be(2);
             foreach (var item in results)
             {
                 Console.WriteLine("Title: {0}", item.Title);
@@ -55,7 +63,7 @@ namespace PredicateExtensions.Tests
             Console.WriteLine(results);
 
             //Assert
-            Assert.AreEqual(1, results.Count());
+            results.Count().Should().Be(1);
             foreach (var item in results)
             {
                 Console.WriteLine("Title: {0}", item.Title);
@@ -68,7 +76,7 @@ namespace PredicateExtensions.Tests
         public void Can_Query_Using_Dynamic_Predicates()
         {
             //arrange
-            IEnumerable<string> keywords = new List<string>{ "First", "Third", "Fourth" };
+            IEnumerable<string> keywords = new List<string> { "First", "Third", "Fourth" };
 
             //act
             //Dynimaically build 
@@ -78,8 +86,7 @@ namespace PredicateExtensions.Tests
 
             //assert
             Console.WriteLine(results);
-            Assert.AreEqual(3, results.Count());
-            
+            results.Count().Should().Be(3);
         }
 
         [Test]
@@ -96,7 +103,7 @@ namespace PredicateExtensions.Tests
 
             //assert
             Console.WriteLine(results);
-            Assert.AreEqual(0, results.Count());
+            results.Count().Should().Be(0);
 
         }
 
@@ -144,6 +151,7 @@ namespace PredicateExtensions.Tests
             dbContext.SaveChanges();
         }
 
+        // TODO: Uncomment if you are having trouble initializing a database
         //[Test]
         //public void Db_Has_Data()
         //{
