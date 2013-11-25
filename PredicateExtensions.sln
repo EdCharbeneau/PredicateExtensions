@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PredicateExtensions", "PredicateExtensions\PredicateExtensions.csproj", "{EFC46BE7-B469-4599-B22D-CC878874B3CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PredicateExtensions.Tests", "PredicateExtensions.Tests\PredicateExtensions.Tests.csproj", "{9304E1C6-958E-4A52-833B-8D11BF39FC13}"
