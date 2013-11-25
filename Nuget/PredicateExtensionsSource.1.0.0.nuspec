@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>PredicateExtensions.Source</id>
+        <version>1.0.0</version>
+        <authors>Ed Charbeneau</authors>
+        <owners>Ed Charbeneau</owners>
+        <projectUrl>https://github.com/EdCharbeneau/PredicateExtensions</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>This package adds the PredicateExtensions source directly to your project. For the full project, including tests, download the project from github.</description>
+        <summary>This package adds the PredicateExtensions source directly to your project. For the full project, including tests, download the project from github.</summary>
+        <releaseNotes>Initial release</releaseNotes>
+        <copyright>MIT License</copyright>
+        <tags>LINQ, EntityFramework, ExpressionTree, predicate, Where</tags>
+    </metadata>
+    <files>
+        <file src="..\LICENSE.md" target="content\LICENSE.md" />
+        <file src="..\PredicateExtensions\PredicateExtensions.cs" target="content\PredicateExtensions.cs" />
+        <file src="..\readme.md" target="content\readme.md" />
+    </files>
+</package>

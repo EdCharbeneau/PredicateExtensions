@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>PredicateExtensions</id>
+        <version>1.0.0</version>
+        <authors>Ed Charbeneau</authors>
+        <owners>Ed Charbeneau</owners>
+        <projectUrl>https://github.com/EdCharbeneau/PredicateExtensions</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>PredicateExtensions is a C# utility that will take two Lambda expressions and combine them using .And or .Or extension methods. Expressions be joined at runtime for dynamic LINQ queries. PredicateExtensions can be used with EntityFramework to refactor and create dynamic queries.</description>
+        <summary>PredicateExtensions is a C# utility that will take two Lambda expressions and combine them using .And or .Or extension methods. Expressions be joined at runtime for dynamic LINQ queries. PredicateExte</summary>
+        <releaseNotes>Initial release</releaseNotes>
+        <copyright>MIT License</copyright>
+        <tags>LINQ, EntityFramework, ExpressionTree, predicate, Where</tags>
+    </metadata>
+    <files>
+        <file src="..\LICENSE.md" target="content\LICENSE.md" />
+        <file src="..\readme.md" target="content\readme.md" />
+        <file src="..\PredicateExtensions\bin\Release\PredicateExtensions.dll" target="lib\PredicateExtensions.dll" />
+    </files>
+</package>
